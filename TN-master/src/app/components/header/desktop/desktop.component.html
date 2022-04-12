@@ -1,0 +1,80 @@
+<nav
+  class="navbar"
+  [style.top]="navbarToggle ? '-55px' : 0"
+  [class.scrolltop]="navbarChange"
+>
+  <a [routerLink]="['']" class="brand">
+    <img src="./assets/img/niwfy-logo.png" alt="niwfy logo" />
+  </a>
+  <ul class="nav-list">
+    <li
+      class="nav-item menu-item"
+      [class.active]="item.path === path"
+      *ngFor="let item of headerRoutes"
+    >
+      <a
+        [routerLink]="[item.path]"
+        class="nav-link menu-link"
+        *ngIf="!item.isDropdown; else buttonLink"
+      >
+        {{ item.name }}
+      </a>
+      <ng-template #buttonLink>
+        <button class="menu-link">{{ item.name }}</button>
+        <ul class="dropdown">
+          <li class="nav-item" *ngFor="let data of item.dropdownData">
+            <a
+              [routerLink]="[item.path, data.slug]"
+              class="nav-link"
+              *ngIf="!data.query; else rank"
+            >
+              {{ data.name }}
+            </a>
+            <ng-template #rank>
+              <a
+                [routerLink]="[item.path, data.slug]"
+                [queryParams]="{ type: data.query }"
+                class="nav-link"
+              >
+                {{ data.name }}
+              </a>
+            </ng-template>
+          </li>
+        </ul>
+      </ng-template>
+    </li>
+    <div
+      class="animation-bar"
+      [style]="{ width: abWidth + 'px', left: abPosition + 'px' }"
+    ></div>
+  </ul>
+  <div class="left-menu">
+    <button mat-icon-button>
+      <mat-icon>search</mat-icon>
+    </button>
+    <div class="user">
+      <div class="avatar" [matMenuTriggerFor]="menu">
+        <img src="./assets/img/pucat.jpg" alt="user" />
+      </div>
+      <mat-icon>arrow_drop_down</mat-icon>
+    </div>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item>
+        <mat-icon>login</mat-icon>
+        <span>Đăng nhập</span>
+      </button>
+      <button mat-menu-item>
+        <mat-icon>account_circle</mat-icon>
+        <span>Tài khoản</span>
+      </button>
+      <button mat-menu-item>
+        <mat-icon>history</mat-icon>
+        <span>Lịch sử</span>
+      </button>
+      <button mat-menu-item>
+        <mat-icon>settings</mat-icon>
+        <span>Cài đặt</span>
+      </button>
+    </mat-menu>
+  </div>
+</nav>
