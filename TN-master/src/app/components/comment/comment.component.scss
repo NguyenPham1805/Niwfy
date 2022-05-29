@@ -1,0 +1,160 @@
+h3 {
+  margin-top: 1rem;
+  padding: 5px 0 0 0;
+  margin-bottom: 10px;
+  width: fit-content;
+  border-bottom: 2px solid #ff9f22;
+  font-weight: 500;
+  color: #ff9f22;
+  margin-bottom: 1.5rem;
+  display: flex;
+
+  mat-icon {
+    margin-right: 5px;
+    color: #ff9f22;
+  }
+}
+
+.sign-in {
+  button {
+    background: none;
+    border: none;
+    font-size: 1rem;
+    cursor: pointer;
+    color: #3349e5;
+  }
+}
+
+.list-cmt {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  gap: 1rem;
+
+  nf-cmt-item {
+    width: 100%;
+  }
+
+  .cmt-item {
+    display: flex;
+    width: 100%;
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 1rem;
+
+    nf-reply {
+      width: 100%;
+    }
+  }
+
+  @media only screen and (max-width: 400px) {
+    padding: 5px;
+    gap: 0.7rem;
+    .cmt-item {
+      gap: 0.7rem;
+    }
+  }
+}
+
+.align {
+  width: 100%;
+  padding-left: 40px;
+  display: none;
+
+  &.display {
+    display: block;
+  }
+}
+
+.no-comment,
+.end {
+  margin: 1rem 0;
+  display: flex;
+  justify-content: center;
+  text-decoration: none;
+
+  h2 {
+    font-weight: 300;
+    font-size: 1.2rem;
+  }
+}
+
+.spinner {
+  margin: 1rem auto 0;
+  width: 70px;
+  text-align: center;
+  display: flex;
+  gap: 5px;
+  align-items: center;
+
+  & > div {
+    width: 18px;
+    height: 18px;
+    background-color: #d3d3d3;
+
+    border-radius: 100%;
+    display: inline-block;
+    animation: sk-bouncedelay 1.4s infinite ease-in-out both;
+  }
+
+  .bounce1 {
+    -webkit-animation-delay: -0.32s;
+    animation-delay: -0.32s;
+  }
+
+  .bounce2 {
+    -webkit-animation-delay: -0.16s;
+    animation-delay: -0.16s;
+  }
+}
+
+::ng-deep {
+  .mat-form-field-wrapper {
+    padding: 0;
+    margin: 0.5rem 0 0;
+  }
+
+  .mat-form-field-appearance-fill .mat-form-field-infix {
+    width: auto;
+    border: none;
+    padding: 0;
+  }
+
+  .mat-form-field-appearance-fill .mat-form-field-flex {
+    padding: 10px 20px !important;
+    background: none;
+  }
+
+  .mat-form-field-underline {
+    display: none;
+  }
+
+  .mat-form-field-appearance-fill .mat-select-arrow-wrapper {
+    transform: translate(0) !important;
+
+    .mat-select-arrow {
+      color: var(--color);
+    }
+  }
+
+  .mat-form-field.mat-focused.mat-primary .mat-select-arrow {
+    color: #ff9f22;
+  }
+
+  .mat-select-panel {
+    background: var(--background);
+  }
+}
+
+@keyframes sk-bouncedelay {
+  0%,
+  80%,
+  100% {
+    transform: scale(0);
+  }
+
+  40% {
+    transform: scale(1);
+  }
+}

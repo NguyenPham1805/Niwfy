@@ -1,1 +1,27 @@
-<p>category works!</p>
+<nf-not-found *ngIf="error; else content"></nf-not-found>
+
+<ng-template #content>
+  <div class="container">
+    <nf-title [title]="title" [loading]="isLoading"></nf-title>
+
+    <div
+      class="search-results"
+      infiniteScroll
+      [infiniteScrollDistance]="1"
+      [infiniteScrollThrottle]="50"
+      (scrolled)="onScroll()"
+    >
+      <nf-list [list]="comics$ | async"></nf-list>
+    </div>
+
+    <nf-list-skeleton *ngIf="isLoading"></nf-list-skeleton>
+
+    <button class="scroll-top" nf-scroll-top title="cuộn lên đầu">
+      <mat-icon>expand_less</mat-icon>
+    </button>
+
+    <div *ngIf="end" class="end">
+      <h2>Bạn đã xem hết {{ title }} !!!</h2>
+    </div>
+  </div>
+</ng-template>

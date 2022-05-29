@@ -1,0 +1,47 @@
+.grid {
+  margin-top: 1rem;
+  padding: 10px;
+  width: 100%;
+  display: grid;
+  gap: 2rem 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(185px, 1fr));
+
+  .skeleton-item {
+    width: 100%;
+    padding-bottom: 135%;
+    background: linear-gradient(90deg, #a8a7a7, #d4d4d4, #a8a7a7);
+    background-size: 200%;
+    animation: skeleton_linear 3s linear infinite;
+  }
+
+  &.dark-theme {
+    .skeleton-item {
+      background: linear-gradient(90deg, #444444, #585858, #444444);
+      background-size: 200%;
+    }
+  }
+
+  @media only screen and (max-width: 465px) {
+    padding: 5px;
+    gap: 1.5rem 1rem;
+  }
+
+  @media only screen and (max-width: 395px) {
+    margin-top: 1.5rem;
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@keyframes skeleton_linear {
+  0% {
+    background-position: 200%;
+  }
+
+  40% {
+    background-position: 200%;
+  }
+
+  100% {
+    background-position: 0%;
+  }
+}

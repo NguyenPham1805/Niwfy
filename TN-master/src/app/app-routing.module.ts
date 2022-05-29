@@ -1,8 +1,9 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+
 import { HomeComponent } from './pages/home/home.component';
-import { NotFoundComponent } from './pages/not-found/not-found.component';
-import { SignInComponent } from './pages/sign-in/sign-in.component';
+import { HomeModule } from './pages/home/home.module';
+import { NotFoundComponent } from './components/not-found/not-found.component';
 
 const routes: Routes = [
   {
@@ -10,24 +11,24 @@ const routes: Routes = [
     component: HomeComponent,
   },
   {
-    path: ':category',
+    path: 'comic',
     loadChildren: () =>
-      import('./pages/category/category.module').then((m) => m.CategoryModule),
-  },
-  {
-    path: 'chapter',
-    loadChildren: () =>
-      import('./pages/chapter/chapter.module').then((m) => m.ChapterModule),
-  },
-  {
-    path: 'sign-in',
-    loadChildren: () =>
-      import('./pages/sign-in/sign-in.module').then((m) => m.SignInModule),
+      import('./pages/comic/comic.module').then((m) => m.ComicModule),
   },
   {
     path: 'history',
     loadChildren: () =>
       import('./pages/history/history.module').then((m) => m.HistoryModule),
+  },
+  {
+    path: 'category/:category',
+    loadChildren: () =>
+      import('./pages/category/category.module').then((m) => m.CategoryModule),
+  },
+  {
+    path: 'finish',
+    loadChildren: () =>
+      import('./pages/finish/finish.module').then((m) => m.FinishModule),
   },
   {
     path: '**',
@@ -36,7 +37,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes), HomeModule],
   exports: [RouterModule],
 })
 export class AppRoutingModule {}

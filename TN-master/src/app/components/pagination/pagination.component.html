@@ -1,0 +1,43 @@
+<div class="pagination">
+  <ul class="pagination-list">
+    <li *ngIf="currentPage > 1" class="btn prev">
+      <a [routerLink]="['']" [queryParams]="{ page: currentPage - 1 }">
+        <mat-icon class="material-icons-outlined">arrow_back_ios</mat-icon>
+      </a>
+    </li>
+
+    <li *ngIf="currentPage > 1">
+      <a [routerLink]="['']" [queryParams]="{ page: 1 }">1</a>
+    </li>
+
+    <li *ngIf="currentPage > 2"><div>. . .</div></li>
+
+    <li>
+      <form (submit)="onChangePage.emit(currentPage)">
+        <input
+          type="number"
+          [(ngModel)]="currentPage"
+          (change)="onCheckPage.emit()"
+          min="1"
+          [max]="totalPage"
+          autocomplete="off"
+          name="page"
+        />
+      </form>
+    </li>
+
+    <li *ngIf="currentPage < totalPage - 1"><div>. . .</div></li>
+
+    <li *ngIf="currentPage < totalPage">
+      <a [routerLink]="['']" [queryParams]="{ page: totalPage }">
+        {{ totalPage }}
+      </a>
+    </li>
+
+    <li class="btn next" *ngIf="currentPage < totalPage">
+      <a [routerLink]="['']" [queryParams]="{ page: currentPage + 1 }">
+        <mat-icon class="material-icons-outlined">arrow_forward_ios</mat-icon>
+      </a>
+    </li>
+  </ul>
+</div>

@@ -13,10 +13,6 @@ export const routes: HeaderRoute[] = [
     path: '',
   },
   {
-    name: 'truyện mới',
-    path: 'new',
-  },
-  {
     name: 'thể loại',
     path: 'genre',
     isDropdown: true,

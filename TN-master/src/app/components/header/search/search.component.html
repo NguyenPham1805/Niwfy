@@ -1,1 +1,108 @@
-<div class="search-container"></div>
+<div
+  class="tap-content"
+  [style.left]="isOpen ? '0' : '-100%'"
+  [class.dark-theme]="isDarkTheme"
+>
+  <div class="head">
+    <button mat-icon-button class="close-btn" (click)="onSearchOpen.emit()">
+      <mat-icon>west</mat-icon>
+    </button>
+
+    <img src="./assets/img/niwfy-logo.png" alt="niwfy logo" />
+  </div>
+
+  <form>
+    <div class="search-input">
+      <input
+        type="text"
+        autocomplete="off"
+        placeholder="Nhập từ khóa..."
+        name="search"
+        [value]="search$.value"
+        (input)="handleInput($event)"
+      />
+
+      <button
+        class="clear-btn"
+        *ngIf="search$.value.length"
+        (click)="handleClearInput()"
+      >
+        <mat-icon>close</mat-icon>
+      </button>
+
+      <span class="border-bottom"></span>
+    </div>
+    <button mat-icon-button>
+      <mat-icon>search</mat-icon>
+    </button>
+  </form>
+
+  <div class="result-list" *ngIf="!isLoading; else loading">
+    <h3 class="title" *ngIf="search$.value.length && !isType && !isNotFound">
+      Kết quả của: <span>{{ search$.value }}</span>
+    </h3>
+
+    <ng-container *ngIf="!isNotFound; else notFound">
+      <a
+        class="item"
+        *ngFor="let item of searchResponse?.comics"
+        (click)="onSearchOpen.emit()"
+        [routerLink]="['/comic/info', item.slug]"
+      >
+        <img [lazyLoad]="item.thumbnail" />
+
+        <div class="info">
+          <h4 class="name">{{ item.name }}</h4>
+
+          <h4 class="chap">{{ item.chapLatest }}</h4>
+
+          <p class="content" *ngIf="item.intro?.length">{{ item.intro }}</p>
+
+          <div class="genres">
+            <div class="genre" *ngFor="let genre of item.genres">
+              {{ genre }}
+            </div>
+          </div>
+        </div>
+      </a>
+    </ng-container>
+
+    <ng-template #notFound>
+      <div class="not-found" *ngIf="search$.value.length">
+        <mat-icon>error_outline</mat-icon>
+        <h3>
+          Không tìm thấy kết quả liên quan đến
+          <span>{{ search$.value }}</span> !
+        </h3>
+      </div>
+    </ng-template>
+  </div>
+
+  <ng-template #loading>
+    <div class="skeleton-container" [class.dark-theme]="isDarkTheme">
+      <div class="skeleton-title"></div>
+
+      <div class="skeleton-item" *ngFor="let item of [].constructor(10)">
+        <div class="skeleton-img"></div>
+
+        <div class="skeleton-info-wrapper">
+          <div class="name"></div>
+          <div class="name"></div>
+          <div class="chap"></div>
+
+          <div class="content"></div>
+          <div class="content"></div>
+          <div class="content"></div>
+
+          <div class="genres">
+            <div class="genre"></div>
+            <div class="genre"></div>
+            <div class="genre"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+</div>
+
+<div class="overlay" *ngIf="isOpen" (click)="onSearchOpen.emit()"></div>

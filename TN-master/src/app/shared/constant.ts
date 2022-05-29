@@ -52,7 +52,7 @@ export const GENRES: Link[] = [
 export const COUNTRIES: Link[] = [
   { slug: 'manga-112', name: 'nhật bản' },
   { slug: 'manhua', name: 'trung quốc' },
-  { slug: 'manhwa-1140', name: 'hàn quốc' },
+  { slug: 'manhwa-11400', name: 'hàn quốc' },
 ];
 
 export const RANKINGS: Link[] = [

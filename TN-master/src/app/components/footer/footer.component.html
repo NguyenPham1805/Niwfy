@@ -1,0 +1,24 @@
+<div class="footer-container" [class.dark-theme]="darkTheme$ | async">
+  <div class="left">
+    <img src="./assets/img/niwfy-logo.png" alt="niwfy logo" />
+
+    <div class="info">
+      <h4>
+        <span>niwfyapp.com</span> | Website đọc truyện tranh miễn phí không
+        quảng cáo
+      </h4>
+
+      <div class="license">
+        Nhà phát triển: Copyright &#169; 2022 - 2071
+        <span>ongphamtrungnguyendeveloper</span>
+        . All Right severved
+      </div>
+    </div>
+  </div>
+
+  <div class="right">
+    <button mat-icon-button (click)="scrollToTop()" title="cuộn lên đầu">
+      <mat-icon>expand_less</mat-icon>
+    </button>
+  </div>
+</div>

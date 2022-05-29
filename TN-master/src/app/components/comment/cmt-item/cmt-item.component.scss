@@ -1,0 +1,173 @@
+.cmt-wrapper {
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+
+  .avatar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    img {
+      width: 40px;
+      height: 40px;
+      border-radius: 20px;
+    }
+  }
+
+  .cmt {
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    border-radius: 5px;
+    background: #83838312;
+    width: 100%;
+
+    .user {
+      display: flex;
+      justify-content: space-between;
+
+      .user-wrapper {
+        display: flex;
+        margin-top: 5px;
+
+        .name {
+          cursor: pointer;
+          margin-right: 10px;
+          font-weight: 500;
+
+          &:hover {
+            color: #ff9f22;
+          }
+        }
+
+        .time-left {
+          font-size: 0.8rem;
+          font-weight: 400;
+          color: #757575;
+        }
+
+        .mat-icon-button {
+          width: 30px;
+          height: 30px;
+        }
+      }
+    }
+
+    .content {
+      width: 100%;
+      padding-right: 40px;
+      margin-top: -10px;
+
+      .text {
+        padding: 5px;
+        font-weight: 400;
+        display: block;
+      }
+
+      img {
+        max-width: 100%;
+      }
+    }
+
+    .tube {
+      padding: 10px;
+      display: flex;
+      align-items: center;
+      gap: 30px;
+
+      button {
+        border: none;
+        background: none;
+        outline: none;
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+        font-size: 1rem;
+
+        mat-icon {
+          width: 20px;
+          height: 20px;
+        }
+
+        &.active mat-icon {
+          color: #ec612a;
+        }
+
+        &.disable {
+          cursor: default;
+          pointer-events: none;
+        }
+      }
+
+      .like {
+        mat-icon {
+          transform: translate(3px, -5px);
+        }
+      }
+
+      .dislike {
+        mat-icon {
+          transform: translate(3px, -2px);
+        }
+      }
+
+      .reply {
+        font-weight: 600;
+      }
+    }
+  }
+
+  @media only screen and (max-width: 400px) {
+    gap: 0.5rem;
+
+    .avatar img {
+      width: 35px;
+      height: 35px;
+    }
+
+    .cmt {
+      padding: 5px;
+
+      .tube {
+        padding: 7px;
+
+        button {
+          font-size: 0.9em;
+
+          mat-icon {
+            font-size: 1.3rem;
+          }
+
+          &.like {
+            mat-icon {
+              transform: translate(3px, -2px);
+            }
+          }
+
+          &.dislike {
+            mat-icon {
+              transform: translate(3px, 0px);
+            }
+          }
+        }
+
+        .reply {
+          font-size: 0.9em;
+        }
+      }
+    }
+  }
+}
+
+::ng-deep .cmt .user button {
+  @media only screen and (max-width: 400px) {
+    width: 32px;
+    height: 32px;
+
+    mat-icon {
+      font-size: 1.3rem;
+    }
+  }
+}

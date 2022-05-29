@@ -1,1 +1,30 @@
-<p>mobile works!</p>
+<nav
+  class="mb-nav"
+  [style.top]="navbarToggle ? '-50px' : 0"
+  [class.dark-theme]="isDarkTheme"
+  [class.scrolltop]="navbarChange"
+>
+  <a [routerLink]="['']" class="brand">
+    <img src="./assets/img/niwfy-logo.png" alt="logo" />
+  </a>
+
+  <div class="left-menu">
+    <button
+      mat-icon-button
+      (click)="onChangeTheme.emit(!isDarkTheme)"
+      title="đổi theme"
+    >
+      <mat-icon class="material-icons-outlined">
+        {{ isDarkTheme ? "wb_sunny" : "nightlight" }}
+      </mat-icon>
+    </button>
+
+    <button mat-icon-button (click)="onSearchOpen.emit()" title="tìm kiếm">
+      <mat-icon>search</mat-icon>
+    </button>
+
+    <button mat-icon-button title="menu" (click)="onMenuOpen.emit()">
+      <mat-icon>menu</mat-icon>
+    </button>
+  </div>
+</nav>

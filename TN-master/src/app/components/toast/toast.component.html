@@ -1,0 +1,8 @@
+<div class="toast-list">
+  <nf-toast-item
+    *ngFor="let toast of messages; let i = index"
+    [dark-theme]="(isDarktheme$ | async)!"
+    [index]="i"
+    [toast]="toast"
+  ></nf-toast-item>
+</div>

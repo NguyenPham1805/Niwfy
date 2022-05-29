@@ -1,0 +1,85 @@
+<ng-container *ngIf="isError; else content">
+  <nf-not-found></nf-not-found>
+</ng-container>
+
+<ng-template #content>
+  <div class="container">
+    <nf-title title="Thông tin" [loading]="isLoading"></nf-title>
+
+    <div class="info" *ngIf="!isLoading; else loading">
+      <nf-info-container
+        [dark-theme]="isDarkTheme$ | async"
+        [info]="info"
+      ></nf-info-container>
+
+      <nf-list-chap
+        [dark-theme]="isDarkTheme$ | async"
+        [info]="info"
+      ></nf-list-chap>
+    </div>
+
+    <ng-template #loading>
+      <div class="sklt-container" [class.dark-theme]="isDarkTheme$ | async">
+        <div class="info-sklt">
+          <div class="head-sklt">
+            <div class="img-sklt"></div>
+
+            <div class="left-info-sklt">
+              <div class="title-sklt"></div>
+              <div class="title-sklt"></div>
+
+              <div class="list-sklt">
+                <div
+                  class="item-sklt"
+                  *ngFor="let item of [].constructor(4)"
+                ></div>
+              </div>
+
+              <div class="op-loading">
+                <div class="spinner">
+                  <div class="double-bounce1"></div>
+                  <div class="double-bounce2"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="heading-sklt"></div>
+
+          <div class="tags-sklt">
+            <div
+              class="tag-item-sklt"
+              *ngFor="let item of [].constructor(4)"
+            ></div>
+          </div>
+
+          <div class="heading-sklt"></div>
+
+          <div class="content-sklt">
+            <div
+              class="paragraph-sklt"
+              *ngFor="let item of [].constructor(5)"
+            ></div>
+          </div>
+        </div>
+
+        <div class="chapter-sklt">
+          <div class="heading-sklt"></div>
+
+          <div
+            class="chap-item-sklt"
+            *ngFor="let item of [].constructor(8)"
+          ></div>
+        </div>
+        <div class="comment-sklt">
+          <div class="heading-sklt"></div>
+
+          <div class="spinner">
+            <div class="double-bounce1"></div>
+            <div class="double-bounce2"></div>
+          </div>
+        </div>
+      </div>
+    </ng-template>
+  </div>
+</ng-template>

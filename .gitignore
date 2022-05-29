@@ -5,6 +5,7 @@
 /TN-server/dist
 
 /TN-server/.env
+/TN-server/test.html
 /tmp
 /out-tsc
 # Only exists if Bazel was run

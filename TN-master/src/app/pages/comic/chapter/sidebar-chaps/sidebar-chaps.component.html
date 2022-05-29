@@ -1,0 +1,58 @@
+<ng-container *ngIf="chapLinks">
+  <div
+    class="sidebar-chaps"
+    [class.open]="isOpen"
+    [class.dark-theme]="isDarkTheme$ | async"
+  >
+    <button
+      class="toggle-btn"
+      [class.rotate]="isOpen"
+      (click)="isOpen = !isOpen"
+    >
+      <mat-icon>arrow_back_ios</mat-icon>
+    </button>
+
+    <a [routerLink]="['/comic/info', link]" class="title">
+      {{ title }}
+    </a>
+
+    <ul class="chap-list">
+      <li
+        *ngFor="let item of chapLinks; let i = index"
+        class="item"
+        [class.active]="i === indexActive"
+      >
+        <button class="link" (click)="onChangeChapter.emit(item)">
+          {{ item.name }}
+        </button>
+      </li>
+    </ul>
+
+    <ng-container
+      *ngIf="indexActive !== undefined"
+      [ngTemplateOutlet]="nav"
+    ></ng-container>
+
+    <ng-template #nav>
+      <div class="nav">
+        <button
+          mat-icon-button
+          [disabled]="indexActive <= 0"
+          [class.disable]="indexActive <= 0"
+          (click)="handleChangeChapter(chapLinks[indexActive + 1])"
+        >
+          <mat-icon>arrow_back_ios</mat-icon>
+        </button>
+
+        <button
+          mat-icon-button
+          [disabled]="indexActive >= chapLinks.length - 1"
+          [class.disable]="indexActive >= chapLinks.length - 1"
+          (click)="handleChangeChapter(chapLinks[indexActive - 1])"
+        >
+          <mat-icon>arrow_forward_ios</mat-icon>
+        </button>
+      </div>
+    </ng-template>
+  </div>
+</ng-container>

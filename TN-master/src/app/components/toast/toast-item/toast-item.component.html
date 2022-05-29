@@ -1,0 +1,19 @@
+<div class="toast" #eToast [class.dark-theme]="isDarktheme">
+  <div [ngSwitch]="toast.type" class="icon" [class]="toast.type">
+    <mat-icon *ngSwitchCase="'info'">info</mat-icon>
+    <mat-icon *ngSwitchCase="'success'">check_circle</mat-icon>
+    <mat-icon *ngSwitchCase="'warning'">error</mat-icon>
+    <mat-icon *ngSwitchCase="'error'">cancel</mat-icon>
+  </div>
+  <div class="content">
+    <p>{{ toast.content }}</p>
+  </div>
+  <div class="btn-dismisss">
+    <button mat-icon-button (click)="handleRemoveToast()">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+  <div class="animation-bar" [class]="toast.type">
+    <div class="inner-bar" [style.width]="timeline + '%'"></div>
+  </div>
+</div>

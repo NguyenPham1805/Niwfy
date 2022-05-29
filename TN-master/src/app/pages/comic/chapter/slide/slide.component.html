@@ -1,0 +1,33 @@
+<div class="image">
+  <button (click)="onClose.emit(index)" mat-icon-button>
+    <mat-icon>close</mat-icon>
+  </button>
+
+  <div class="image-container">
+    <img [lazyLoad]="srcs[index]" />
+
+    <div class="nav">
+      <button
+        mat-icon-button
+        (click)="onChangeIndex.emit(index - 1)"
+        class="prev"
+        [disabled]="index <= 0"
+        [class.disable]="index <= 0"
+      >
+        <mat-icon>arrow_back_ios</mat-icon>
+      </button>
+
+      <button
+        mat-icon-button
+        (click)="onChangeIndex.emit(index + 1)"
+        class="next"
+        [disabled]="index >= srcs.length - 1"
+        [class.disable]="index >= srcs.length - 1"
+      >
+        <mat-icon>arrow_forward_ios</mat-icon>
+      </button>
+    </div>
+  </div>
+
+  <div class="overlay"></div>
+</div>

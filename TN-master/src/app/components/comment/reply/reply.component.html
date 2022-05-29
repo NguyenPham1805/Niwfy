@@ -1,0 +1,17 @@
+<div class="cmt-reply">
+  <button *ngIf="!isOpenReply" (click)="isOpenReply = true">
+    Xem {{ reply.length }} phản hồi
+    <mat-icon>expand_more</mat-icon>
+  </button>
+
+  <ng-container *ngIf="isOpenReply">
+    <nf-cmt-item
+      *ngFor="let item of reply; trackBy: trackById"
+      [comment]="item"
+      [comment-id]="forId"
+      [reply-cmt]="true"
+      (refresh)="refresh.emit()"
+      (reply)="handleReply()"
+    ></nf-cmt-item>
+  </ng-container>
+</div>

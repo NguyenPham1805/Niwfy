@@ -1,0 +1,44 @@
+<div class="sign-in" [class.dark-theme]="isDarkTheme" *ngIf="isOpen$ | async">
+  <div class="head">
+    <button mat-icon-button (click)="handleSignInClose()">
+      <mat-icon>close</mat-icon>
+    </button>
+
+    <img src="./assets/img/niwfy-logo.png" alt="niwfy" />
+
+    <h3>Đăng nhập vào <span>niwfy</span> để có trải nghiệm tốt nhất!</h3>
+  </div>
+
+  <div class="body">
+    <h2>Đọc truyện miễn phí không quảng cáo</h2>
+
+    <p>
+      Truyện mới luôn được cập nhật mỗi ngày. Với khoảng <span>10.000</span> bộ
+      truyện nhiều thể loại
+    </p>
+
+    <div class="buttons">
+      <button
+        class="gg-sign-in"
+        (click)="handleGGSignIn(); handleSignInClose()"
+      >
+        <img src="./assets/img/google-icon.png" alt="google icon" />
+        Đăng nhập với google
+      </button>
+
+      <button
+        class="fb-sign-in"
+        (click)="handleFBSignIn(); handleSignInClose()"
+      >
+        <img src="./assets/img/facebook-icon.png" alt="facebook icon" />
+        Đăng nhập với facebook
+      </button>
+    </div>
+  </div>
+</div>
+
+<div
+  class="overlay"
+  (click)="handleSignInClose()"
+  *ngIf="isOpen$ | async"
+></div>

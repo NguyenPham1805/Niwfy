@@ -1,0 +1,14 @@
+<div class="title" [class.dark-theme]="isDarkTheme$ | async">
+  <h1
+    [style.animation-duration]="durationSlide"
+    *ngIf="!isLoading; else loading"
+  >
+    {{ title }}
+  </h1>
+
+  <div class="description" *ngIf="description">Đăng vào: {{ description }}</div>
+
+  <ng-template #loading>
+    <div class="skeleton-title"></div>
+  </ng-template>
+</div>

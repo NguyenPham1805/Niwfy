@@ -1,1 +1,37 @@
-<p>carousel works!</p>
+<nf-title
+  title="Truyện đề cử"
+  slide-duration="3s"
+  [loading]="isLoading$ | async"
+></nf-title>
+
+<div
+  class="carousel-container"
+  [class.dark-theme]="isDarkTheme"
+  *ngIf="!(isLoading$ | async); else loading"
+>
+  <owl-carousel-o [options]="customOptions">
+    <ng-container
+      *ngFor="let slide of (slides$ | async)!.comics; let i = index"
+    >
+      <ng-template carouselSlide [id]="slide.id">
+        <a class="slide-item" [routerLink]="['comic/info', slide.slug]">
+          <a [routerLink]="['chapter', slide.slug]" class="chap-lastest">
+            {{ slide.chapLatest[0].name }}
+          </a>
+
+          <div class="title">
+            <p>{{ slide.title }}</p>
+          </div>
+
+          <img [lazyLoad]="slide.thumbnail" />
+        </a>
+      </ng-template>
+    </ng-container>
+  </owl-carousel-o>
+</div>
+
+<ng-template #loading>
+  <div class="skeleton-container" [class.dark-theme]="isDarkTheme">
+    <div class="skeleton-item" *ngFor="let item of [].constructor(5)"></div>
+  </div>
+</ng-template>

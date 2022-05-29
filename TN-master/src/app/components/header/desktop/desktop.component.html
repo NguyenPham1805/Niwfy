@@ -1,11 +1,13 @@
 <nav
   class="navbar"
   [style.top]="navbarToggle ? '-55px' : 0"
+  [class.dark-theme]="isDarkTheme"
   [class.scrolltop]="navbarChange"
 >
   <a [routerLink]="['']" class="brand">
     <img src="./assets/img/niwfy-logo.png" alt="niwfy logo" />
   </a>
+
   <ul class="nav-list">
     <li
       class="nav-item menu-item"
@@ -19,20 +21,26 @@
       >
         {{ item.name }}
       </a>
+
       <ng-template #buttonLink>
         <button class="menu-link">{{ item.name }}</button>
+
         <ul class="dropdown">
-          <li class="nav-item" *ngFor="let data of item.dropdownData">
+          <li
+            class="nav-item item-dropdown"
+            *ngFor="let data of item.dropdownData"
+          >
             <a
-              [routerLink]="[item.path, data.slug]"
+              [routerLink]="['category', item.path, data.slug]"
               class="nav-link"
               *ngIf="!data.query; else rank"
             >
               {{ data.name }}
             </a>
+
             <ng-template #rank>
               <a
-                [routerLink]="[item.path, data.slug]"
+                [routerLink]="['category', item.path, data.slug]"
                 [queryParams]="{ type: data.query }"
                 class="nav-link"
               >
@@ -43,38 +51,77 @@
         </ul>
       </ng-template>
     </li>
+
     <div
       class="animation-bar"
       [style]="{ width: abWidth + 'px', left: abPosition + 'px' }"
     ></div>
   </ul>
+
   <div class="left-menu">
-    <button mat-icon-button>
+    <button
+      mat-icon-button
+      (click)="onChangeTheme.emit(!isDarkTheme)"
+      title="đổi theme"
+    >
+      <mat-icon class="material-icons-outlined">
+        {{ isDarkTheme ? "wb_sunny" : "nightlight" }}
+      </mat-icon>
+    </button>
+
+    <button mat-icon-button (click)="onSearchOpen.emit()" title="tìm kiếm">
       <mat-icon>search</mat-icon>
     </button>
-    <div class="user">
-      <div class="avatar" [matMenuTriggerFor]="menu">
-        <img src="./assets/img/pucat.jpg" alt="user" />
+
+    <ng-container *ngIf="user; else signIn">
+      <div class="user">
+        <div class="avatar" [matMenuTriggerFor]="menu">
+          <img [src]="user.photoUrl" />
+        </div>
+
+        <mat-icon>arrow_drop_down</mat-icon>
       </div>
-      <mat-icon>arrow_drop_down</mat-icon>
-    </div>
-    <mat-menu #menu="matMenu">
-      <button mat-menu-item>
-        <mat-icon>login</mat-icon>
-        <span>Đăng nhập</span>
-      </button>
-      <button mat-menu-item>
+
+      <mat-menu #menu="matMenu">
+        <div class="menu" [class.dark-menu]="isDarkTheme">
+          <button mat-menu-item (click)="onProfileOpen.emit()">
+            <mat-icon>account_circle</mat-icon>
+
+            <span>Tài khoản</span>
+          </button>
+
+          <button mat-menu-item>
+            <mat-icon>history</mat-icon>
+            <span>Lịch sử</span>
+          </button>
+
+          <button mat-menu-item (click)="openToast()">
+            <mat-icon class="materal-icons-outlined">notifications</mat-icon>
+            <span>Thông báo</span>
+          </button>
+
+          <button mat-menu-item (click)="openToast()">
+            <mat-icon>settings</mat-icon>
+            <span>Cài đặt</span>
+          </button>
+
+          <button mat-menu-item (click)="onSignOut.emit()">
+            <mat-icon>logout</mat-icon>
+            <span>Đăng xuất</span>
+          </button>
+        </div>
+      </mat-menu>
+    </ng-container>
+
+    <ng-template #signIn>
+      <button
+        class="signin-btn"
+        mat-icon-button
+        title="Đăng nhập"
+        (click)="handleOpenSignIn()"
+      >
         <mat-icon>account_circle</mat-icon>
-        <span>Tài khoản</span>
       </button>
-      <button mat-menu-item>
-        <mat-icon>history</mat-icon>
-        <span>Lịch sử</span>
-      </button>
-      <button mat-menu-item>
-        <mat-icon>settings</mat-icon>
-        <span>Cài đặt</span>
-      </button>
-    </mat-menu>
+    </ng-template>
   </div>
 </nav>

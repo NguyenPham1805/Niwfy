@@ -1,0 +1,42 @@
+@import url("https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500&family=Montserrat:wght@100&family=Nanum+Gothic&display=swap");
+
+.not-found {
+  position: fixed;
+  z-index: 5;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  background: url(../../../assets/img/p404.png), #83603f;
+
+  .message {
+    color: #fff;
+    max-width: 50vw;
+    font-weight: 300;
+    text-align: center;
+  }
+
+  .status-code {
+    color: #fff;
+    text-align: center;
+    font-family: "Montserrat";
+    font-size: 7rem;
+    font-weight: 200;
+  }
+
+  .return {
+    padding: 10px 30px;
+    font-size: 1.2rem;
+    text-decoration: none;
+    border: 1px solid #ff7b00;
+    color: #ff7b00;
+
+    &:hover {
+      background-color: #ff7b0067;
+      opacity: 0.8;
+    }
+  }
+}

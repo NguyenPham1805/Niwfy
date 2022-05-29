@@ -1,0 +1,81 @@
+<ng-container *ngIf="error; else content">
+  <nf-not-found></nf-not-found>
+</ng-container>
+
+<ng-template #content>
+  <div class="container">
+    <ng-container *ngIf="currentChapter$ | async as chapter">
+      <div class="wrapper">
+        <nf-sidebar-chaps
+          [title]="chapter?.title"
+          [links]="(chapterLinks$ | async)?.links"
+          [link]="currentComicSlug"
+          (change-chapter)="handleChangeChapter($event)"
+        ></nf-sidebar-chaps>
+
+        <nf-title
+          [title]="chapter.chapterName"
+          [loading]="isLoading"
+          [description]="chapter.updateAt"
+          slide-duration="2s"
+        ></nf-title>
+
+        <ul class="chap" *ngIf="!isLoading; else loading">
+          <li class="item" *ngFor="let src of chapter.comics; let i = index">
+            <img [lazyLoad]="src" (click)="handleOpenSlide(i)" />
+          </li>
+        </ul>
+
+        <ng-template #loading>
+          <div class="loading">
+            <div class="sk-cube-grid">
+              <div class="sk-cube sk-cube1"></div>
+              <div class="sk-cube sk-cube2"></div>
+              <div class="sk-cube sk-cube3"></div>
+              <div class="sk-cube sk-cube4"></div>
+              <div class="sk-cube sk-cube5"></div>
+              <div class="sk-cube sk-cube6"></div>
+              <div class="sk-cube sk-cube7"></div>
+              <div class="sk-cube sk-cube8"></div>
+              <div class="sk-cube sk-cube9"></div>
+            </div>
+          </div>
+        </ng-template>
+
+        <button class="scroll-top" (click)="handleScrollTop()">
+          <mat-icon>expand_less</mat-icon>
+        </button>
+
+        <div class="option">
+          <button class="follows" (click)="followClicked = !followClicked">
+            <span>Theo dõi</span>
+            <mat-icon>favorite{{ !followClicked && "_outline" }}</mat-icon>
+          </button>
+
+          <button class="rating">
+            <span>Đánh giá</span>
+            <mat-icon class="material-icons-outlined">grade</mat-icon>
+          </button>
+        </div>
+
+        <ng-container
+          *ngIf="isSlideOpen"
+          [ngTemplateOutlet]="slideView"
+        ></ng-container>
+
+        <ng-template #slideView>
+          <nf-slide
+            [srcs]="chapter.comics"
+            [index]="indexActive"
+            (change-index)="handleNavSlide($event)"
+            (close)="handleCloseSlide($event)"
+          ></nf-slide>
+        </ng-template>
+
+        <div class="comment" *ngIf="comicId">
+          <nf-comment [comic-id]="comicId"></nf-comment>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+</ng-template>

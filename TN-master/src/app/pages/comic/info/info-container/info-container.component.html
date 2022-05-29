@@ -1,0 +1,95 @@
+<div class="info-container" [class.dark-theme]="isDarkTheme">
+  <div class="head">
+    <img [src]="info.thumbnail" />
+
+    <div class="info-wrapper">
+      <h2 class="title">
+        {{ info.title }}
+      </h2>
+
+      <div class="info-list">
+        <div class="info-item author">
+          <label>Tác giả:</label>
+          <p>{{ info.author || "Đang cập nhật" }}</p>
+        </div>
+
+        <div class="info-item last-updated">
+          <label>Lần cuối:</label>
+          <p>{{ info.updatedAt }}</p>
+        </div>
+
+        <div class="info-item status">
+          <label>Tình trạng:</label>
+          <p>{{ info.status }}</p>
+        </div>
+
+        <div class="info-item views">
+          <label>Lượt xem:</label>
+          <p>{{ info.views }}1</p>
+        </div>
+      </div>
+
+      <div class="options">
+        <button
+          class="btn read"
+          [routerLink]="['/comic/chapter', info.id, info.slug]"
+          [queryParams]="{
+            chap: info.chapters[0]?.name | chapToSlug,
+            hashId: info.chapters[0]?.hashId
+          }"
+        >
+          Đọc ngay
+        </button>
+
+        <div class="tube">
+          <button class="btn follows">
+            <mat-icon>favorite_outline</mat-icon> {{ info.follows }}
+          </button>
+
+          <button class="btn rating">
+            <mat-icon>star_outline</mat-icon> {{ info.rating }}/10 -
+            {{ info.reviews }}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="genres">
+    <h3>Thể loại</h3>
+
+    <div class="genres-wrapper">
+      <a
+        *ngFor="let genre of info.genres"
+        [routerLink]="['/category/genre', genre.slug]"
+        class="tag"
+        >{{ genre.name }}</a
+      >
+    </div>
+  </div>
+
+  <div class="content">
+    <h3>Nội dung</h3>
+
+    <div class="content-wrapper">
+      <div class="text" [class.more-content]="!isSeeMore">
+        {{ info.content }}
+      </div>
+
+      <div
+        class="see-more"
+        [class.more-state]="!isSeeMore"
+        (click)="isSeeMore = !isSeeMore"
+        *ngIf="isHasMore"
+      >
+        <button>
+          {{ isSeeMore ? "xem thêm" : "ẩn đi" }}
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <nf-list-chap [dark-theme]="isDarkTheme" [info]="info"></nf-list-chap>
+
+  <nf-comment [comic-id]="info.id"></nf-comment>
+</div>

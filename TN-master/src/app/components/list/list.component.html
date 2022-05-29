@@ -1,0 +1,47 @@
+<div class="grid" [class.dark-theme]="isDarkTheme$ | async" *ngIf="list">
+  <div class="item" *ngFor="let comic of list; trackBy: trackById">
+    <a
+      class="body"
+      [routerLink]="['/comic/info', comic.slug]"
+      routerLinkActive="router-link-active"
+    >
+      <div class="filter">
+        <span class="time-left">{{ comic.chapLatest[0].timeLeft }}</span>
+
+        <img [lazyLoad]="comic.thumbnail" />
+      </div>
+
+      <div class="info-overlay">
+        <div class="title">{{ comic.title }}</div>
+
+        <div class="views">
+          <mat-icon class="material-icons-outlined">visibility</mat-icon>
+          <p>{{ comic.views }}</p>
+        </div>
+
+        <div class="follows">
+          <mat-icon>favorite_outline</mat-icon>
+
+          <p>{{ comic.follows }}</p>
+        </div>
+      </div>
+    </a>
+
+    <div class="foot">
+      <a
+        [routerLink]="['/comic/chapter/', comic.id, comic.slug]"
+        [queryParams]="{ chap: chap.name | chapToSlug, hashId: chap.hashId }"
+        *ngFor="let chap of comic.chapLatest; let i = index"
+      >
+        <ng-container *ngIf="i < 2">
+          <div class="chap-lastest">{{ chap.name }}</div>
+
+          <div class="time-post">
+            <mat-icon class="material-icons-outlined">schedule</mat-icon>
+            {{ chap.timeLeft }}
+          </div>
+        </ng-container>
+      </a>
+    </div>
+  </div>
+</div>

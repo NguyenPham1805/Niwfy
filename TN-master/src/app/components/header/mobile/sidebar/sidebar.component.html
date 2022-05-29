@@ -1,0 +1,118 @@
+<div
+  class="sidebar"
+  [class.dark-theme]="isDarkTheme"
+  [style.left]="isOpen ? '0' : '-100%'"
+>
+  <button mat-icon-button (click)="onClose.emit()" class="close-btn">
+    <mat-icon>west</mat-icon>
+  </button>
+
+  <div class="head" *ngIf="user$ | async as user; else signIn">
+    <div class="avatar">
+      <img [src]="user?.photoUrl" />
+    </div>
+
+    <div class="option">
+      <button mat-icon-button [matMenuTriggerFor]="mbmenu">
+        <mat-icon>more_vert</mat-icon>
+      </button>
+
+      <mat-menu #mbmenu="matMenu">
+        <div class="menu" [class.dark-menu]="isDarkTheme">
+          <button mat-menu-item>
+            <mat-icon>history</mat-icon>
+            <span>Lịch sử</span>
+          </button>
+
+          <button mat-menu-item (click)="openToast()">
+            <mat-icon>settings</mat-icon>
+            <span>Cài đặt</span>
+          </button>
+
+          <button mat-menu-item (click)="onSignOut.emit()">
+            <mat-icon>logout</mat-icon>
+            <span>Đăng xuất</span>
+          </button>
+        </div>
+      </mat-menu>
+    </div>
+
+    <div class="name">{{ user.displayName }}</div>
+
+    <div class="info">
+      <div class="email">
+        <h4>Email:</h4>
+        {{ user.email }}
+      </div>
+
+      <div class="date-join">
+        <h4>Tham gia vào:</h4>
+        {{ user.createdAt | date: "dd/mm/yyyy" }}
+      </div>
+
+      <div class="follows">
+        <h4>Đang theo dõi:</h4>
+        20
+      </div>
+
+      <div class="post">
+        <h4>Truyện đã đăng:</h4>
+        0
+      </div>
+    </div>
+  </div>
+
+  <ng-template #signIn>
+    <button mat-stroked-button class="sign-in" (click)="handleOpenSignIn()">
+      <mat-icon>login</mat-icon>
+      Sign In
+    </button>
+  </ng-template>
+
+  <ul class="nav-list">
+    <li
+      class="nav-item menu-item"
+      [class.active]="item.path === path"
+      *ngFor="let item of headerRoutes"
+    >
+      <a
+        [routerLink]="[item.path]"
+        class="nav-link menu-link"
+        *ngIf="!item.isDropdown; else buttonLink"
+      >
+        {{ item.name }}
+      </a>
+
+      <ng-template #buttonLink>
+        <button class="menu-link" #button (click)="handleOpenDropdown(button)">
+          {{ item.name }}
+          <mat-icon>arrow_drop_up</mat-icon>
+        </button>
+
+        <ul class="dropdown">
+          <li class="nav-item" *ngFor="let data of item.dropdownData">
+            <a
+              [routerLink]="['category', item.path, data.slug]"
+              class="nav-link"
+              *ngIf="!data.query; else rank"
+            >
+              {{ data.name }}
+            </a>
+
+            <ng-template #rank>
+              <a
+                [routerLink]="['category', item.path, data.slug]"
+                [queryParams]="{ type: data.query }"
+                class="nav-link"
+              >
+                {{ data.name }}
+              </a>
+            </ng-template>
+          </li>
+        </ul>
+      </ng-template>
+    </li>
+  </ul>
+</div>
+
+<div class="overlay" (click)="onClose.emit()" *ngIf="isOpen"></div>

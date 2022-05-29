@@ -1,3 +1,22 @@
-<div class="container">
-  <p>home works!</p>
-</div>
+<ng-container *ngIf="error$ | async; else content">
+  <nf-not-found></nf-not-found>
+</ng-container>
+
+<ng-template #content>
+  <div class="container">
+    <nf-carousel [dark-theme]="darkTheme$ | async"></nf-carousel>
+
+    <nf-title [title]="title" *ngIf="!isLoading" slide-duration="3s"></nf-title>
+
+    <nf-list [list]="home" *ngIf="!isLoading"></nf-list>
+
+    <nf-list-skeleton *ngIf="isLoading"></nf-list-skeleton>
+
+    <nf-pagination
+      (change-page)="handleChagePage($event)"
+      (check-page)="checkPage(currentPage)"
+      [current-page]="currentPage"
+      [total-page]="totalPage"
+    ></nf-pagination>
+  </div>
+</ng-template>

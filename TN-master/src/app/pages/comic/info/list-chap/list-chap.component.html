@@ -1,0 +1,20 @@
+<div class="chapters" [class.dark-theme]="isDarkTheme">
+  <h2>Danh sách chương</h2>
+
+  <div class="list-chap">
+    <a
+      *ngFor="let chap of info?.chapters"
+      [routerLink]="['/comic/chapter', info.id, info.slug]"
+      [queryParams]="{ chap: chap.name | chapToSlug, hashId: chap.hashId }"
+      class="chap"
+    >
+      <div class="left">
+        <h4>{{ chap.name }}</h4>
+
+        <p>{{ chap.views }} lượt xem</p>
+      </div>
+
+      <div class="right">{{ chap.timeLeft }}</div>
+    </a>
+  </div>
+</div>

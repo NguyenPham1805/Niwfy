@@ -1,0 +1,53 @@
+.pagination {
+  margin-top: 2rem;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+
+  .pagination-list {
+    display: flex;
+
+    li {
+      list-style: none;
+
+      form {
+        border: 1px solid #818181;
+        margin: 0px 5px;
+      }
+
+      input {
+        width: 35px;
+        height: 35px;
+        font-size: 1rem;
+        text-align: center;
+        outline: none;
+        border: none;
+        background: none;
+        color: #ffa835;
+
+        &::-webkit-outer-spin-button,
+        &::-webkit-inner-spin-button {
+          -webkit-appearance: none;
+          margin: 0;
+        }
+      }
+
+      a {
+        height: 40px;
+        width: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-decoration: none;
+      }
+
+      div {
+        height: 40px;
+        width: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+    }
+  }
+}
