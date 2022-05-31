@@ -37,8 +37,8 @@
       <div class="nav">
         <button
           mat-icon-button
-          [disabled]="indexActive <= 0"
-          [class.disable]="indexActive <= 0"
+          [disabled]="indexActive >= chapLinks.length - 1"
+          [class.disable]="indexActive >= chapLinks.length - 1"
           (click)="handleChangeChapter(chapLinks[indexActive + 1])"
         >
           <mat-icon>arrow_back_ios</mat-icon>
@@ -46,8 +46,8 @@
 
         <button
           mat-icon-button
-          [disabled]="indexActive >= chapLinks.length - 1"
-          [class.disable]="indexActive >= chapLinks.length - 1"
+          [disabled]="indexActive <= 0"
+          [class.disable]="indexActive <= 0"
           (click)="handleChangeChapter(chapLinks[indexActive - 1])"
         >
           <mat-icon>arrow_forward_ios</mat-icon>

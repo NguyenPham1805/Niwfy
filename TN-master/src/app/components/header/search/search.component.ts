@@ -28,7 +28,26 @@ export class SearchComponent implements OnInit, OnDestroy {
 
   constructor(private readonly csv: ComicService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.search$
+      .pipe(
+        tap(() => {
+          this.isLoading = true;
+          this.isType = true;
+          this.isNotFound = false;
+        }),
+        debounceTime(1000),
+        switchMap((keyword) => this.csv.getSearch(keyword)),
+        tap(() => {
+          this.isType = false;
+          this.isLoading = false;
+        })
+      )
+      .subscribe((res) => {
+        if (res.success && res.comics?.length) this.searchResponse = res;
+        else this.isNotFound = true;
+      });
+  }
 
   ngOnDestroy(): void {
     this.search$.complete();
@@ -40,25 +59,7 @@ export class SearchComponent implements OnInit, OnDestroy {
   }
 
   public handleInput(e: Event): void {
-    this.search$
-      .pipe(
-        tap(() => {
-          this.isLoading = true;
-          this.isType = true;
-          this.isNotFound = false;
-        }),
-        debounceTime(500),
-        switchMap((keyword) => this.csv.getSearch(keyword)),
-        tap(() => {
-          this.isType = false;
-          this.isLoading = false;
-        })
-      )
-      .subscribe((res) => {
-        if (res.success && res.comics?.length) this.searchResponse = res;
-        else this.isNotFound = true;
-      });
-    const keyword = (e.target as HTMLInputElement).value.trim().toLowerCase();
+    const keyword = (e.target as HTMLInputElement).value.trim();
     if (keyword.length === 0) return;
     this.search$.next(keyword);
   }

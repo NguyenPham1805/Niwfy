@@ -1,4 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { addToatAction } from 'src/app/core/store/actions/toast.action';
 import { InfoResponse } from 'src/app/shared/types/comic.interface';
 
 @Component({
@@ -14,8 +16,22 @@ export class InfoContainerComponent implements OnInit {
   @Input('dark-theme') isDarkTheme: boolean | null = true;
   @Input() info!: InfoResponse;
 
+  constructor(private readonly store: Store) {}
+
   ngOnInit(): void {
     this.isHasMore = this.info?.content.length > 300;
     document.title = 'Thông tin | ' + this.info?.specialName;
+  }
+
+  public handleAction(): void {
+    this.store.dispatch(
+      addToatAction({
+        message: {
+          content:
+            'Tính năng này chưa làm nhưng ad vẫn bỏ vô cho vui, có gì update sau, ae chờ ad nhé!!',
+          type: 'info',
+        },
+      })
+    );
   }
 }

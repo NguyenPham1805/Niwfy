@@ -17,6 +17,7 @@ import { currentUserSelector } from 'src/app/core/store/selectors/user.selector'
 import { CurrentUser } from 'src/app/shared/types/user.interface';
 import { CommentItem } from 'src/app/shared/types/message.interface';
 import { NgForm } from '@angular/forms';
+import { addToatAction } from 'src/app/core/store/actions/toast.action';
 
 @Component({
   selector: 'nf-comment-form',
@@ -63,6 +64,14 @@ export class CommentFormComponent implements OnInit, OnDestroy {
     this.changeFileLoading = true;
     if (fileTarget.files[0].size > 1024 * 1024 * 20) {
       this.handleRemovePreviewImg(fileTarget);
+      this.store.dispatch(
+        addToatAction({
+          message: {
+            content: 'Kích thước ảnh quá lớn!',
+            type: 'error',
+          },
+        })
+      );
       return;
     }
     this.fileToUpload = fileTarget.files[0];
@@ -112,7 +121,17 @@ export class CommentFormComponent implements OnInit, OnDestroy {
       ? this.previewImage
       : null;
 
-    if (!this.text.trim().length && !image) return;
+    if (!this.text.trim().length && !image) {
+      this.store.dispatch(
+        addToatAction({
+          message: {
+            content: 'Hãy viết gì đó!',
+            type: 'warning',
+          },
+        })
+      );
+      return;
+    }
 
     this.onComment.emit({
       uid: this.user.uid,

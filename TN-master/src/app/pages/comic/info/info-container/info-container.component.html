@@ -34,19 +34,19 @@
           class="btn read"
           [routerLink]="['/comic/chapter', info.id, info.slug]"
           [queryParams]="{
-            chap: info.chapters[0]?.name | chapToSlug,
-            hashId: info.chapters[0]?.hashId
+            chap: info.chapters[info.chapters.length - 1]?.name | chapToSlug,
+            hashId: info.chapters[info.chapters.length - 1]?.hashId
           }"
         >
           Đọc ngay
         </button>
 
         <div class="tube">
-          <button class="btn follows">
+          <button class="btn follows" (click)="handleAction()">
             <mat-icon>favorite_outline</mat-icon> {{ info.follows }}
           </button>
 
-          <button class="btn rating">
+          <button class="btn rating" (click)="handleAction()">
             <mat-icon>star_outline</mat-icon> {{ info.rating }}/10 -
             {{ info.reviews }}
           </button>

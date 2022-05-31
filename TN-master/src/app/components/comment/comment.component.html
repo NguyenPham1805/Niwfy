@@ -10,8 +10,12 @@
     (is-reply)="(false)"
   ></nf-comment-form>
 
-  <mat-form-field appearance="fill">
-    <mat-select [(ngModel)]="sort" name="sort">
+  <mat-form-field appearance="fill" *ngIf="!noComment && totalComment > 10">
+    <mat-select
+      [(ngModel)]="sort"
+      name="sort"
+      (selectionChange)="handleSortComments()"
+    >
       <mat-option value="all">Tất cả</mat-option>
       <mat-option value="relate">Liên quan nhất</mat-option>
       <mat-option value="newest">Mới nhất</mat-option>

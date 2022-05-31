@@ -94,6 +94,7 @@ export class ChapterComponent implements OnInit, OnDestroy {
   }
 
   public handleChangeChapter(chap: ChapterLink): void {
+    console.log(this.indexActive);
     this.router.navigate(
       ['comic/chapter', this.comicId, this.currentComicSlug],
       {

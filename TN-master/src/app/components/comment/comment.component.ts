@@ -23,6 +23,7 @@ import {
   tap,
   take,
 } from 'rxjs';
+import { addToatAction } from 'src/app/core/store/actions/toast.action';
 import { currentUserSelector } from 'src/app/core/store/selectors/user.selector';
 import { FirebaseService } from 'src/app/shared/service/firebase.service';
 import { CommentItem } from 'src/app/shared/types/message.interface';
@@ -182,6 +183,18 @@ export class CommentComponent implements OnInit, OnDestroy {
 
   public handleRefreshCmt(): void {
     this.limit$.next(this.limit$.value);
+  }
+
+  public handleSortComments(): void {
+    this.store.dispatch(
+      addToatAction({
+        message: {
+          content:
+            'Tính năng này chưa làm nhưng ad vẫn bỏ vô cho vui, có gì update sau, ae chờ ad nhé ',
+          type: 'info',
+        },
+      })
+    );
   }
 
   public trackById(

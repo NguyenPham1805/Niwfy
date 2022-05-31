@@ -11,6 +11,7 @@ import {
   InfoResponse,
   SearchResponse
 } from './types'
+import { toSlug } from './ultils'
 
 dotenv.config({ path: path.resolve(__dirname, '../.env') })
 
@@ -78,9 +79,9 @@ class Model {
   public static search = async (
     q: string
   ): Promise<SearchResponse[] | null> => {
-    const query = decodeURI(q)
+    const keyword = toSlug(decodeURI(q), ' ')
     return instance
-      .get(`Comic/Services/SuggestSearch.ashx?q=${query}`)
+      .get(`Comic/Services/SuggestSearch.ashx?q=${encodeURI(keyword)}`)
       .then(({ data }) => {
         const dom = parser(data)
 
