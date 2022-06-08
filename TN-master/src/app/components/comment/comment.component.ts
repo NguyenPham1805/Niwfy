@@ -137,10 +137,12 @@ export class CommentComponent implements OnInit, OnDestroy {
 
   public handleAddComment(comment: CommentItem): void {
     this.addCmtLoading = true;
-    this.fs.addComment({ ...comment, comicId: this.comicId }).then(() => {
-      this.openCmtForm = false;
-      this.addCmtLoading = false;
-    });
+    this.fs
+      .addComment({ ...comment, comicId: Number(this.comicId) })
+      .then(() => {
+        this.openCmtForm = false;
+        this.addCmtLoading = false;
+      });
   }
 
   public handleAppendFromReply(index: number, cmtId: string): void {

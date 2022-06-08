@@ -20,7 +20,9 @@ export class InfoContainerComponent implements OnInit {
 
   ngOnInit(): void {
     this.isHasMore = this.info?.content.length > 300;
-    document.title = 'Thông tin | ' + this.info?.specialName;
+    setTimeout(() => {
+      document.title = 'Thông tin | ' + this.info?.specialName;
+    }, 0);
   }
 
   public handleAction(): void {
