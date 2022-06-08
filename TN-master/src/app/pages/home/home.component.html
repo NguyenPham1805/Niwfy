@@ -6,7 +6,11 @@
   <div class="container">
     <nf-carousel [dark-theme]="darkTheme$ | async"></nf-carousel>
 
-    <nf-title [title]="title" *ngIf="!isLoading" slide-duration="3s"></nf-title>
+    <nf-title
+      [title]="title"
+      [loading]="isLoading"
+      slide-duration="3s"
+    ></nf-title>
 
     <nf-list [list]="home" *ngIf="!isLoading"></nf-list>
 
