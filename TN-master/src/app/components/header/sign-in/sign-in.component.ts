@@ -1,12 +1,12 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { GoogleAuthProvider, FacebookAuthProvider } from '@firebase/auth';
+import { Observable } from 'rxjs';
 import {
   signInAction,
   signInOpenAction,
 } from 'src/app/core/store/actions/user.action';
 import { UserService } from 'src/app/shared/service/user.service';
-import { Observable } from 'rxjs';
 import { signInToggleSelector } from 'src/app/core/store/selectors/user.selector';
 
 @Component({

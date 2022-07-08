@@ -28,7 +28,6 @@ export class ToastItemComponent implements OnInit {
       }
       this.timeline = 100 - time / 5.2;
     });
-
     delay(200);
     this.timerSubscription$ = timer(5400).subscribe(() => {
       this.eToast.nativeElement.classList.add('removed');

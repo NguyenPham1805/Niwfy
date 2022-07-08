@@ -9,7 +9,11 @@
 
   <div class="head" *ngIf="user$ | async as user; else signIn">
     <div class="avatar">
-      <img [src]="user?.photoUrl" />
+      <img
+        [src]="
+          user?.photoUrl ? user.photoUrl : './assets/img/default-avatar.png'
+        "
+      />
     </div>
 
     <div class="option">
@@ -19,17 +23,25 @@
 
       <mat-menu #mbmenu="matMenu">
         <div class="menu" [class.dark-menu]="isDarkTheme">
-          <button mat-menu-item>
+          <button
+            mat-menu-item
+            [routerLink]="['history']"
+            (click)="onClose.emit()"
+          >
             <mat-icon>history</mat-icon>
             <span>Lịch sử</span>
           </button>
 
-          <button mat-menu-item (click)="openToast()">
+          <button mat-menu-item (click)="openToast()" (click)="onClose.emit()">
             <mat-icon>settings</mat-icon>
             <span>Cài đặt</span>
           </button>
 
-          <button mat-menu-item (click)="onSignOut.emit()">
+          <button
+            mat-menu-item
+            (click)="onSignOut.emit()"
+            (click)="onClose.emit()"
+          >
             <mat-icon>logout</mat-icon>
             <span>Đăng xuất</span>
           </button>

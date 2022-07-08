@@ -1,14 +1,7 @@
-import {
-  ChangeDetectorRef,
-  Component,
-  EventEmitter,
-  Input,
-  OnInit,
-  Output,
-} from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Store } from '@ngrx/store';
 
-import { Subject, take } from 'rxjs';
+import { take } from 'rxjs';
 import { currentUserSelector } from 'src/app/core/store/selectors/user.selector';
 import { FirebaseService } from 'src/app/shared/service/firebase.service';
 import { CommentItem } from 'src/app/shared/types/message.interface';
@@ -31,8 +24,7 @@ export class CmtItemComponent implements OnInit {
 
   constructor(
     private readonly fs: FirebaseService,
-    private readonly store: Store,
-    private readonly cdr: ChangeDetectorRef
+    private readonly store: Store
   ) {}
 
   ngOnInit(): void {

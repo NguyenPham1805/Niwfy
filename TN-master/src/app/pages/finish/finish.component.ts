@@ -22,28 +22,27 @@ export class FinishComponent implements OnInit {
     this.comics$ = this._comics$
       .asObservable()
       .pipe(scan((acc, val) => [...acc, ...val]));
-    document.title = 'Truyện hoành thành';
+    document.title = 'niwfy | Truyện hoành thành';
+
+    this.currentPage$
+      .asObservable()
+      .pipe(
+        tap(() => (this.isLoading = true)),
+        switchMap((currentPage) => {
+          return this.csv.getFinish(currentPage);
+        })
+      )
+      .subscribe((res) => {
+        this.isLoading = false;
+        if (this.currentPage$.value >= res.pagination.totalPage) {
+          this.currentPage$.complete();
+          this.end = true;
+        }
+        this._comics$.next(res.comics);
+      });
   }
 
   public onScroll(): void {
-    if (this.currentPage$.value === 1) {
-      this.currentPage$
-        .asObservable()
-        .pipe(
-          tap(() => (this.isLoading = true)),
-          switchMap((currentPage) => {
-            return this.csv.getFinish(currentPage);
-          })
-        )
-        .subscribe((res) => {
-          this.isLoading = false;
-          if (this.currentPage$.value >= res.pagination.totalPage) {
-            this.currentPage$.complete();
-            this.end = true;
-          }
-          this._comics$.next(res.comics);
-        });
-    }
     this.currentPage$.next(this.currentPage$.value + 1);
   }
 }

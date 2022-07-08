@@ -1,3 +1,5 @@
+import { Link } from '../constant';
+
 export interface Comic {
   id: string;
   title: string;
@@ -76,8 +78,21 @@ export interface ChapterData {
   comics: string[];
 }
 
-export interface HistoryComic extends Comic {
-  time: number;
+export interface HistoryComic {
+  docId?: string;
+  comicId: string;
+  title: string;
+  thumb_url: string;
+  slug: string;
+  chapReadLastest: {
+    name: string;
+    hashId: string;
+  };
+  tag: Link[];
+  createdAt: {
+    nanoseconds: number;
+    seconds: number;
+  };
 }
 
 export interface ComicState {
@@ -85,8 +100,6 @@ export interface ComicState {
     success: boolean | null;
     comics: Comic[] | null;
   };
-  search: SearchResponse | null;
-  history: HistoryComic[] | null;
   loading: boolean;
   error: string;
 }

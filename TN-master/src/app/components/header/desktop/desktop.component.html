@@ -76,7 +76,11 @@
     <ng-container *ngIf="user; else signIn">
       <div class="user">
         <div class="avatar" [matMenuTriggerFor]="menu">
-          <img [src]="user.photoUrl" />
+          <img
+            [src]="
+              user?.photoUrl ? user.photoUrl : './assets/img/default-avatar.png'
+            "
+          />
         </div>
 
         <mat-icon>arrow_drop_down</mat-icon>

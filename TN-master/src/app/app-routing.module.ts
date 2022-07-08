@@ -4,6 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './pages/home/home.component';
 import { HomeModule } from './pages/home/home.module';
 import { NotFoundComponent } from './components/not-found/not-found.component';
+import { UserGuard } from './shared/guard/user.guard';
 
 const routes: Routes = [
   {
@@ -17,6 +18,7 @@ const routes: Routes = [
   },
   {
     path: 'history',
+    canLoad: [UserGuard],
     loadChildren: () =>
       import('./pages/history/history.module').then((m) => m.HistoryModule),
   },

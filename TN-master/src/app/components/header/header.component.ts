@@ -37,9 +37,12 @@ export class HeaderComponent implements OnInit {
         throttleTime(0)
       )
       .subscribe((e: RouterEvent) => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
         this.isMBMenuOpen && (this.isMBMenuOpen = false);
         if (e.url.split('/').length > 2) this.path = e.url.split('/')[2];
-        else this.path = e.url.split('/')[0];
+        else if (e.url.split('/')[0] === e.url.split('/')[1])
+          this.path = e.url.split('/')[0];
+        else this.path = e.url.split('/')[1];
       });
   }
 

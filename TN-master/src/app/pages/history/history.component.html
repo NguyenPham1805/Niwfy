@@ -1,3 +1,106 @@
 <div class="container">
-  <p>history works!</p>
+  <nf-title title="Lịch sử" [loading]="isLoading"></nf-title>
+
+  <div class="head-container" *ngIf="!isLoading">
+    <form (submit)="handleSubmit()">
+      <button class="search-btn">
+        <mat-icon>search</mat-icon>
+      </button>
+
+      <div class="search-input">
+        <input
+          type="text"
+          name="search"
+          autocomplete="off"
+          placeholder="Tìm kiếm..."
+          [(ngModel)]="keyword"
+        />
+
+        <span class="bottom"></span>
+      </div>
+    </form>
+
+    <div class="right-head" (click)="handleOpenDialog()">
+      <mat-icon>delete</mat-icon>
+      xóa tất cả
+    </div>
+  </div>
+
+  <div class="null" *ngIf="!historyList.length">
+    <h2>Không có truyện đọc gần đây</h2>
+  </div>
+
+  <div
+    class="list"
+    *ngIf="!isLoading"
+    infiniteScroll
+    [infiniteScrollDistance]="1"
+    [infiniteScrollThrottle]="50"
+    (scrolled)="handleScroll()"
+  >
+    <div
+      class="item"
+      *ngFor="let item of historyList; trackBy: trackById; let i = index"
+    >
+      <img [lazyLoad]="item.thumb_url" />
+
+      <a class="info" [routerLink]="['/comic/info', item.slug]">
+        <div class="name">
+          <h2>{{ item.title }}</h2>
+        </div>
+
+        <div class="chap-lastest">{{ item.chapReadLastest.name }}</div>
+
+        <div class="date-read">
+          {{ item?.createdAt?.seconds | getTime | date: "short" }}
+        </div>
+
+        <div class="tags">
+          <div class="tag" *ngFor="let tag of item.tag">
+            {{ tag.name }}
+          </div>
+        </div>
+      </a>
+
+      <div class="option">
+        <button mat-icon-button [matMenuTriggerFor]="menuOption">
+          <mat-icon>more_vert</mat-icon>
+        </button>
+
+        <mat-menu #menuOption="matMenu">
+          <div class="menu" [class.dark-menu]="isDarkTheme$ | async">
+            <button mat-menu-item (click)="handleRemoveOne(item.docId!)">
+              <mat-icon class="material-icons-outlined">
+                delete_forever
+              </mat-icon>
+              <span>Xóa</span>
+            </button>
+
+            <button mat-menu-item>
+              <mat-icon>favorite_outline</mat-icon>
+              <span>Theo dõi bộ truyện</span>
+            </button>
+
+            <button
+              mat-menu-item
+              [routerLink]="['/comic/chapter', item.comicId, item.slug]"
+              [queryParams]="{
+                chap: item.chapReadLastest.name | chapToSlug,
+                hashId: item.chapReadLastest.hashId
+              }"
+            >
+              <mat-icon>undo</mat-icon>
+              <span>Đọc tiếp {{ item.chapReadLastest.name | lowercase }}</span>
+            </button>
+          </div>
+        </mat-menu>
+      </div>
+    </div>
+  </div>
+
+  <div class="loader" *ngIf="isLoading">
+    <span class="text">Đang tải ...</span>
+    <div class="outer"></div>
+    <div class="middle"></div>
+  </div>
 </div>

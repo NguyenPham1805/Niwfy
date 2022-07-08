@@ -5,6 +5,7 @@ import {
   OnInit,
   ViewChild,
 } from '@angular/core';
+import { Router } from '@angular/router';
 import { fromEvent, map, Subscription } from 'rxjs';
 
 @Component({
@@ -15,11 +16,17 @@ import { fromEvent, map, Subscription } from 'rxjs';
 export class NotFoundComponent implements OnInit, OnDestroy {
   @ViewChild('container') container!: ElementRef;
   private mousemoveEvents$!: Subscription;
+  private prevRoute?: string = '';
 
-  constructor() {}
+  constructor(private readonly router: Router) {
+    this.prevRoute = router
+      .getCurrentNavigation()
+      ?.previousNavigation?.finalUrl?.toString();
+  }
 
   ngOnInit(): void {
-    document.title = '404 | Not Found';
+    document.title = 'niwfy 404 | Not Found';
+
     this.mousemoveEvents$ = fromEvent(document, 'mousemove')
       .pipe(map((e) => e as MouseEvent))
       .subscribe((e) => {
@@ -32,5 +39,9 @@ export class NotFoundComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.mousemoveEvents$.unsubscribe();
+  }
+
+  public handleReturn() {
+    this.router.navigate([this.prevRoute || '']);
   }
 }

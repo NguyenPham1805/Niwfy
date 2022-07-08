@@ -5,6 +5,7 @@ import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
 import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import { AngularFireStorageModule } from '@angular/fire/compat/storage';
+import { AngularFireFunctionsModule } from '@angular/fire/compat/functions';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { EffectsModule } from '@ngrx/effects';
@@ -40,6 +41,7 @@ import { HomeModule } from './pages/home/home.module';
     AngularFirestoreModule,
     AngularFireStorageModule,
     AngularFireDatabaseModule,
+    AngularFireFunctionsModule,
     CoreModule,
     StoreModule.forRoot({}, {}),
     EffectsModule.forRoot([]),

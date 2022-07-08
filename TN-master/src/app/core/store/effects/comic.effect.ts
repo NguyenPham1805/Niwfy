@@ -1,9 +1,8 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { catchError, of, switchMap, tap, map } from 'rxjs';
+import { catchError, of, switchMap, map } from 'rxjs';
 import { ComicService } from 'src/app/shared/service/manga.service';
-import { Comic } from 'src/app/shared/types/comic.interface';
 import {
   getSlideComicsAction,
   getSlideComicsSuccessAction,

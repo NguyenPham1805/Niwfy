@@ -4,4 +4,8 @@
   top: 60px;
   left: 10px;
   width: 360px;
+
+  @media only screen and (max-width: 400px) {
+    width: 320px;
+  }
 }

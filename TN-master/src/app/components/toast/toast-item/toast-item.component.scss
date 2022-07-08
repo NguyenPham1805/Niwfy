@@ -114,6 +114,11 @@
   &.dark-theme {
     background: #141414;
   }
+
+  @media only screen and (max-width: 400px) {
+    padding: 5px;
+    height: 70px;
+  }
 }
 
 @keyframes slide {

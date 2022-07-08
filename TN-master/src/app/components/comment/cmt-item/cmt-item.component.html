@@ -1,6 +1,10 @@
 <div class="cmt-wrapper" *ngIf="comment">
   <div class="avatar">
-    <img [src]="user?.photoUrl" />
+    <img
+      [src]="
+        user?.photoUrl ? user?.photoUrl : './assets/img/default-avatar.png'
+      "
+    />
   </div>
 
   <div class="cmt">
@@ -39,6 +43,7 @@
 
       <img *ngIf="comment.img" [lazyLoad]="comment!.img!" />
     </div>
+
     <div class="tube">
       <button
         class="like"
@@ -53,8 +58,9 @@
           [class.material-icons-outlined]="
             !(comment?.reaction || {} | checkReaction: currentUser?.uid:1)
           "
-          >thumb_up</mat-icon
         >
+          thumb_up
+        </mat-icon>
       </button>
 
       <button
@@ -70,8 +76,9 @@
           [class.material-icons-outlined]="
             !(comment?.reaction || {} | checkReaction: currentUser?.uid:2)
           "
-          >thumb_down</mat-icon
         >
+          thumb_down
+        </mat-icon>
       </button>
 
       <button class="reply" (click)="reply.emit()">Phản hồi</button>

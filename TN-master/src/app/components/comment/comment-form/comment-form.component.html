@@ -6,7 +6,11 @@
   >
     <div class="avatar" title="Bạn">
       <div class="avatar-wrapper">
-        <img [src]="user.photoUrl" />
+        <img
+          [src]="
+            user?.photoUrl ? user.photoUrl : './assets/img/default-avatar.png'
+          "
+        />
       </div>
     </div>
 
@@ -39,8 +43,10 @@
         >
           <mat-icon>close</mat-icon>
         </button>
+
         <div class="wrapper">
           <img [src]="previewImage" [class.loading-img]="changeFileLoading" />
+
           <div
             class="progress-bar"
             *ngIf="changeFileLoading"

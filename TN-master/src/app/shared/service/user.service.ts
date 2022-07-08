@@ -1,7 +1,6 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { FirebaseError } from '@angular/fire/app';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
-import { User } from '@angular/fire/auth';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { AuthProvider } from '@firebase/auth';
 import { Store } from '@ngrx/store';
@@ -40,13 +39,13 @@ export class UserService implements OnDestroy {
         })
       )
       .subscribe((res) => {
-        if (!(res instanceof FirebaseError) && res) {
+        if (!(res instanceof FirebaseError) && !!res) {
           const userData = {
-            uid: res?.uid,
-            displayName: res?.displayName,
-            photoUrl: res?.photoURL,
-            email: res?.email,
-            createdAt: res?.metadata.creationTime,
+            uid: res.uid,
+            displayName: res.displayName,
+            photoUrl: res.photoURL,
+            email: res.email,
+            createdAt: res.metadata.creationTime,
           } as CurrentUser;
           this.store.dispatch(signInSuccessAction({ currentUser: userData }));
           this.store.dispatch(

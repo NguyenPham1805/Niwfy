@@ -1,5 +1,3 @@
-import { Message } from './message.interface';
-
 export interface CurrentUser {
   uid: string;
   displayName: string;

@@ -6,6 +6,7 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { ListSkeletonModule } from 'src/app/components/list-skeleton/list-skeleton.module';
 import { ListModule } from 'src/app/components/list/list.module';
 import { TitleModule } from 'src/app/components/title/title.module';
+import { DirectivesModule } from 'src/app/shared/directive/directives.module';
 import { FinishRoutingModule } from './finish-routing.module';
 import { FinishComponent } from './finish.component';
 
@@ -19,6 +20,7 @@ import { FinishComponent } from './finish.component';
     ListSkeletonModule,
     InfiniteScrollModule,
     MatIconModule,
+    DirectivesModule,
   ],
 })
 export class FinishModule {}

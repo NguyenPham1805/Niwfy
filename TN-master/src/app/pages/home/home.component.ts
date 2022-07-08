@@ -42,11 +42,14 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.darkTheme$ = this.store.select(themeSelector);
+
+    document.title = 'niwfy | Mới cập nhật';
+
     this.activatedRoute.queryParams
       .pipe(
         tap(() => (this.isLoading = true)),
         pluck('page'),
-        map((page) => Number(page) as number),
+        map((page) => Number(page)),
         tap((page) => {
           this.currentPage = this.checkPage(page || 1);
           if (page) {

@@ -7,8 +7,6 @@ const comicState: ComicState = {
     success: null,
     comics: null,
   },
-  search: null,
-  history: null,
   loading: false,
   error: '',
 };
@@ -45,22 +43,6 @@ export const comicReducer = createReducer(
       ...state,
       loading: false,
       error: action.error,
-    })
-  ),
-  on(
-    ComicAction.getHistoryComicsAction,
-    (state): ComicState => ({
-      ...state,
-      loading: true,
-      error: '',
-    })
-  ),
-  on(
-    ComicAction.getHistoryComicsSuccessAction,
-    (state, action): ComicState => ({
-      ...state,
-      history: action.historyResponse,
-      loading: false,
     })
   )
 );

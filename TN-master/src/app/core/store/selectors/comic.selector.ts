@@ -17,8 +17,3 @@ export const slideErrorSelector = createSelector(
   comicFeatureSelector,
   (state) => state.error
 );
-
-export const historySelector = createSelector(
-  comicFeatureSelector,
-  (state) => state.history
-);
