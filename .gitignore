@@ -1,25 +1,28 @@
 # See http://help.github.com/ignore-files/ for more about ignoring files.
 
 # compiled output
-/TN-master/dist
-/TN-server/dist
+niwfy/dist
+niwfy/.angular
+niwfy/target
 
-/TN-server/.env
-/TN-server/test.html
-/tmp
-/out-tsc
+niwfy-server/dist
+niwfy-server/.gitignore
+niwfy-server/.env
+niwfy-server/test.html
+tmp
+out-tsc
 # Only exists if Bazel was run
-/bazel-out
+bazel-out
 
 # dependencies
-/TN-master/node_modules
-/TN-server/node_modules
+niwfy/node_modules
+niwfy-server/node_modules
 
 # profiling files
 chrome-profiler-events*.json
 
 # IDEs and editors
-/.idea
+.idea
 .project
 .classpath
 .c9/
@@ -36,7 +39,6 @@ chrome-profiler-events*.json
 .history/*
 
 # misc
-TN-master/.angular/cache
 /.sass-cache
 /connect.lock
 /coverage

@@ -1,0 +1,89 @@
+<ng-container *ngIf="commentList">
+  <h3>
+    <mat-icon class="material-icons-outlined">chat</mat-icon>
+    Bình luận {{ totalComment ? "(" + totalComment + ")" : "" }}
+  </h3>
+
+  <nf-comment-form
+    (comment)="handleAddComment($event)"
+    [loading]="addCmtLoading"
+    (is-reply)="(false)"
+  ></nf-comment-form>
+
+  <mat-form-field appearance="fill" *ngIf="!noComment && totalComment > 10">
+    <mat-select
+      [(ngModel)]="sort"
+      name="sort"
+      (selectionChange)="handleSortComments()"
+    >
+      <mat-option value="all">Tất cả</mat-option>
+      <mat-option value="relate">Liên quan nhất</mat-option>
+      <mat-option value="newest">Mới nhất</mat-option>
+      <mat-option value="oldest">Cũ nhất</mat-option>
+    </mat-select>
+  </mat-form-field>
+</ng-container>
+
+<div
+  *ngIf="commentList"
+  class="search-results"
+  infiniteScroll
+  [infiniteScrollDistance]="1"
+  [infiniteScrollThrottle]="50"
+  (scrolled)="onScroll()"
+>
+  <div class="list-cmt" #eCommentListContainer>
+    <div
+      class="cmt-item"
+      *ngFor="let comment of commentList; let i = index; trackBy: trackById"
+    >
+      <nf-cmt-item
+        [comment]="comment.comment"
+        [comment-id]="comment.comment.commentId"
+        [reply-cmt]="false"
+        (reply)="handleAppendFromReply(i, comment.comment.commentId!)"
+      ></nf-cmt-item>
+
+      <ng-container
+        *ngIf="comment.reply.length"
+        [ngTemplateOutlet]="reply"
+      ></ng-container>
+
+      <ng-template #reply>
+        <nf-reply
+          [for-id]="comment.comment.commentId!"
+          [reply]="comment.reply"
+          (refresh)="handleRefreshCmt()"
+          (reply)="handleAppendFromReply(i, comment.comment.commentId!)"
+        ></nf-reply>
+      </ng-template>
+    </div>
+  </div>
+</div>
+
+<div class="align" [class.display]="openCmtForm" #eFormReply>
+  <nf-comment-form
+    plh="Trả lời"
+    [loading]="addCmtLoading"
+    [is-reply]="true"
+    (comment)="handleReply($event)"
+  ></nf-comment-form>
+</div>
+
+<div *ngIf="noComment && (currentUser$ | async)" class="no-comment">
+  <h2>Hãy là người đầu tiên nêu đánh giá về bộ truyện này.</h2>
+</div>
+
+<div *ngIf="noComment && !(currentUser$ | async)" class="no-comment">
+  <h2>Chưa có bình luận nào.</h2>
+</div>
+
+<div *ngIf="end" class="end">
+  <h2>Đã hết bình luận.</h2>
+</div>
+
+<div class="spinner" *ngIf="isLoading">
+  <div class="bounce1"></div>
+  <div class="bounce2"></div>
+  <div class="bounce3"></div>
+</div>

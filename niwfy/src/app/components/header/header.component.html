@@ -1,0 +1,41 @@
+<nf-desktop
+  [path]="path"
+  [user]="currentUser$ | async"
+  [dark-theme]="(darkTheme$ | async)!"
+  (open-profile)="isProfileOpen = true"
+  (open-search)="isSearchOpen = true"
+  (change-theme)="handleChangeTheme($event)"
+  (sign-out)="handleSignOut()"
+></nf-desktop>
+
+<nf-mobile
+  [user]="currentUser$ | async"
+  [dark-theme]="(darkTheme$ | async)!"
+  (open-menu)="isMBMenuOpen = true"
+  (open-search)="isSearchOpen = true"
+  (change-theme)="handleChangeTheme($event)"
+></nf-mobile>
+
+<nf-sidebar
+  [path]="path"
+  [dark-theme]="(darkTheme$ | async)!"
+  [isOpen]="isMBMenuOpen"
+  (sign-out)="handleSignOut()"
+  (close)="isMBMenuOpen = false"
+></nf-sidebar>
+
+<nf-sign-in [dark-theme]="(darkTheme$ | async)!"></nf-sign-in>
+
+<nf-profile
+  [user]="currentUser$ | async"
+  [isOpen]="isProfileOpen"
+  [dark-theme]="(darkTheme$ | async)!"
+  (open)="isProfileOpen = false"
+  *ngIf="isProfileOpen"
+></nf-profile>
+
+<nf-search
+  [isOpen]="isSearchOpen"
+  (close)="isSearchOpen = false"
+  [dark-theme]="(darkTheme$ | async)!"
+></nf-search>
